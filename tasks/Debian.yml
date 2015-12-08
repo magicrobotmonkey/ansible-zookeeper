@@ -22,6 +22,19 @@
   notify:
     - Restart zookeeper
 
+- name: Add log4j SYSLOG configuration
+  template: src=log4j.properties.j2 dest=/etc/zookeeper/conf/log4j.properties
+  tags: deploy
+  notify:
+    - Restart zookeeper
+
+- name: Add environment file with SYSLOG
+  template: src=environment.j2 dest=/etc/zookeeper/conf/environment
+  tags: deploy
+  notify:
+    - Restart zookeeper
+
+
 - name: Start zookeeper service
   service: name=zookeeper state=started enabled=yes
   tags: deploy
